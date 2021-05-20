@@ -27,6 +27,7 @@
 #include "gui/content_widget/content_widget.h"
 #include "hal_core/utilities/log.h"
 #include "gui/gui_utils/graphics.h"
+
 #include <QLabel>
 #include <QMenu>
 #include <QPlainTextEdit>
@@ -38,9 +39,7 @@
 
 namespace hal
 {
-    class FilterTabBar;
     class LoggerMarshall;
-    struct FilterItem;
     class ChannelSelector;
 
     /**
@@ -78,26 +77,12 @@ namespace hal
         QPlainTextEdit* getPlainTextEdit();
 
         /**
-         * Gets the FilterTabBar of this widget.
-         * TODO: FilterTabBar unused?
-         *
-         * @returns the FilterTabBar of this widget
-         */
-        FilterTabBar* getTabBar();
-
-        /**
          * Overrides the QWidget resizeEvent. After resizing the logger should be scrolled to the bottom, but only
          * if the user hasn't interacted with the scrollbar before.
          *
          * @param event
          */
         void resizeEvent(QResizeEvent* event) override;
-
-    Q_SIGNALS:
-        /**
-         * TODO: Unused Q_SIGNAL
-         */
-        void queueLogUpdate(spdlog::level::level_enum t, QString const& msg, FilterItem* filter);
 
     public Q_SLOTS:
         /**
@@ -133,14 +118,6 @@ namespace hal
         void showTextEditContextMenu(const QPoint& point);
 
         /**
-         * TODO: TabBar is unused?
-         * Q_SLOT to handle a click on the filter bar.
-         *
-         * @param index - The index of the filter that was clicked
-         */
-        void filterItemClicked(const int& index);
-
-        /**
          * Q_SLOT to handle interactions with the scrollbar. After the first scrollbar interaction the scrollbar wont
          * be locked at the bottom anymore (e.g. after a resize event).
          *
@@ -151,7 +128,6 @@ namespace hal
     private:
         void scrollToBottom();
 
-        FilterTabBar* mTabBar;
         QPlainTextEdit* mPlainTextEdit;
         ChannelSelector* mSelector;
         LoggerMarshall* mLogMarshall;

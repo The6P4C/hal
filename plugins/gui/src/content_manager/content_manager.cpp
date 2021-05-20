@@ -182,13 +182,6 @@ namespace hal
         //mContent.append(mPythonWidget); // DONT DO THIS PYTHON_WIDGET IS CREATED IN THE CONSTRUCTOR FOR SOME REASON
         mContent.append(mPythonConsoleWidget);
 
-        PluginModel* model                 = new PluginModel(this);
-        PluginManagerWidget* plugin_widget = new PluginManagerWidget();
-        plugin_widget->setPluginModel(model);
-        //mMainWindow->addContent(plugin_widget, content_anchor::bottom);
-
-        connect(model, &PluginModel::runPlugin, mMainWindow, &MainWindow::runPluginTriggered);
-
         setWindowTitle(fileName);
 
 #ifdef HAL_STUDY
